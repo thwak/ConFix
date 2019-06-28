@@ -1,5 +1,6 @@
 # ConFix
 ConFix - Automated Patch Generation with Context-based Change Application
+For detailed approaches and evaluation, please check this [manuscript](https://github.com/thwak/ConFix/wiki/pre-print.pdf).  
 
 Currently, ConFix is fitted to execute for Defects4j bugs.
 To run ConFix, you'll need the followings.  
