@@ -56,6 +56,10 @@ public class ChangePoolGenerator {
 	}
 
 	public void collect(String id, File bFile, File aFile, String[] classPathEntries, String[] sourcePathEntries) {
+		collect(id, bFile, aFile, classPathEntries, sourcePathEntries, true);
+	}
+
+	public void collect(String id, File bFile, File aFile, String[] classPathEntries, String[] sourcePathEntries, boolean discardDelMov) {
 		try {
 			//Generate EditScript from before and after.
 			String oldCode = IOUtils.readFile(bFile);
@@ -65,7 +69,7 @@ public class ChangePoolGenerator {
 			EditScript editScript = ScriptGenerator.generateScript(before, after);
 			//Convert EditScript to Script.
 			editScript = Converter.filter(editScript);
-			EditScript combined = Converter.combineEditOps(editScript);
+			EditScript combined = Converter.combineEditOps(editScript, discardDelMov);
 			Script script = Converter.convert(id, combined, oldCode, newCode);
 			collect(script);
 		} catch (IOException e) {

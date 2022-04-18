@@ -74,7 +74,23 @@ public class Converter {
 		return filtered;
 	}
 
-	public static EditScript combineEditOps(EditScript script){
+	public static EditScript filterRemainingDelMov(EditScript editScript){
+		EditScript filtered = new EditScript();
+		for(EditOp op : editScript.getEditOps()){
+			if(op.getType().equals(Change.MOVE) || op.getType().equals(Change.DELETE)) {
+				//Discard delete / move operations.
+				continue;
+			}
+			filtered.addEditOp(op);
+		}
+		return filtered;
+	}
+
+	public static EditScript combineEditOps(EditScript script) {
+		return combineEditOps(script, true);
+	}
+
+	public static EditScript combineEditOps(EditScript script, boolean discardDelMov){
 		EditScript newScript = new EditScript();
 		//Categorize each type of edit operations.
 		List<EditOp> editOps = script.getEditOps();
