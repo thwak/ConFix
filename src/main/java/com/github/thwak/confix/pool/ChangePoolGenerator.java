@@ -69,7 +69,9 @@ public class ChangePoolGenerator {
 			EditScript editScript = ScriptGenerator.generateScript(before, after);
 			//Convert EditScript to Script.
 			editScript = Converter.filter(editScript);
-			EditScript combined = Converter.combineEditOps(editScript, discardDelMov);
+			EditScript combined = Converter.combineEditOps(editScript);
+			if(discardDelMov)
+				combined = Converter.filterRemainingDelMov(combined);
 			Script script = Converter.convert(id, combined, oldCode, newCode);
 			collect(script);
 		} catch (IOException e) {

@@ -65,9 +65,6 @@ public class Converter {
 							|| loc.equals(EnumConstantDeclaration.NAME_PROPERTY))
 						continue;
 				}
-			} else if(op.getType().equals(Change.MOVE) || op.getType().equals(Change.DELETE)) {
-				//Discard delete / move operations.
-				continue;
 			}
 			filtered.addEditOp(op);
 		}
@@ -86,11 +83,7 @@ public class Converter {
 		return filtered;
 	}
 
-	public static EditScript combineEditOps(EditScript script) {
-		return combineEditOps(script, true);
-	}
-
-	public static EditScript combineEditOps(EditScript script, boolean discardDelMov){
+	public static EditScript combineEditOps(EditScript script){
 		EditScript newScript = new EditScript();
 		//Categorize each type of edit operations.
 		List<EditOp> editOps = script.getEditOps();
